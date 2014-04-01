@@ -12,7 +12,7 @@
 
 * GCC method
 - time delay estimation
-
+I think we have the input from [[file:generate.m]]. We can write gcc-phat from file:ArrayToolbox/comparedelay.m using `delaysttm`.
 * BSS (blind source separation)  
 
 * Proposed method
