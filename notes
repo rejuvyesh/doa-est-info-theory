@@ -1,0 +1,19 @@
+#+TITLE: Estimation of DoA using Information Theory
+#+AUTHOR: Jayesh Kumar Gupta
+
+* Assumption
+- Gaussian
+- Information Theoretical measure
+
+* Need
+- multiple reflections (reverberations)
+
+* Problem  
+
+* GCC method
+- time delay estimation
+
+* BSS (blind source separation)  
+
+* Proposed method
+- Maximizing Mutual information comparing function
