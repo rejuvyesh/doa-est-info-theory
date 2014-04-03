@@ -4,6 +4,14 @@ end
 
 function tau = gcc_phat(sig1, sig2)
 % Find FFT for the signals
+% 
+%
+% Author: Jayesh Kumar Gupta, 2014.
+%
+% Contact: Jayesh Kumar Gupta http://rejuvyesh.com
+%          Indian Institute of Technology, Kanpur, India
+    
+    
     fft1  = fft(sig1, fftSize(sig1));
     fft2  = fft(sig2, fftSize(sig2));
     % Find R(\Tau)
