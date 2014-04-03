@@ -14,6 +14,7 @@ t = 0:.0001:5;
 speech = sin(2*pi*t); % sine for now
 
 %--------- beta = 0.15 ---------
-[sig1, sig2] = generate(c, fs, source, receiver, L, beta(1), speech, snr);
+[sig1 sig2] = generate(c, fs, source, receiver, L, beta(1), speech, snr);
 tau = gcc_phat(sig1, sig2);
-[lag I] = mi(sig1, sig2, 10, 2);
+% tau_prime = finddelay(sig1, sig2); % Exists in matlab itself
+[lag I] = mi(sig1, sig2, 10, 4, 2);

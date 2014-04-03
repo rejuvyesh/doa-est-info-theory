@@ -1,27 +1,35 @@
-function [lag, I] = mi(sig1, sig2, order, base)
+function [lag, I] = mi(sig1, sig2, shift, order, base)
 % Estimate lag via Mutual Information criterion
 % sig1: signal1
 % sig2: signal2
+% shift: range of expcted tau
 % order: N order
-% base: log base    
-    
-    start = 1;
-    finish = length(sig1) - order;
+% base: log base
+
+    start = 1+shift;
+    finish = length(sig1) - shift - order + 1;
 
     % construct bigger covariance matrix
-    cov(1:2*order, 1:2*order) = 0;
+    cov(1:2*order+2*shift, 1:2*order+2*shift) = 0;
     for i=start:finish
         sig12(1:order) = sig1(i:i+order-1);
-        sig12(order+1:2*order) = sig2(i:i+order-1);
+        sig12(order+1:2*order+2*shift) = sig2(i-shift:i+order-1+shift);
         cov = cov + sig12'*sig12;
     end
 
     % compute mutual information
-    I = -0.5*log(det(cov)/det(cov(1:order,1:order))/det(cov(order+1:2*order, ...
-                                                      order+1:2*order)))
+    for i = -shift:shift
+        j=order+shift+i;
+        sub(1      :order  ,1      :order  )=cov(1  :order  ,1  :order  );
+        sub(order+1:2*order,order+1:2*order)=cov(j+1:j+order,j+1:j+order);
+        sub(1      :order  ,order+1:2*order)=cov(1  :order  ,j+1:j+order);
+        sub(order+1:2*order,1      :order  )=cov(j+1:j+order,1  :order  );
 
-    [_, lag] = max(I);
+        I(shift+i+1) = -0.5*log(det(sub)/det(sub(1:order,1:order))/det(sub(order+1:2*order, ...
+                                                      order+1:2*order)));
 
+    [~, lag] = max(I);
+    lag      = lag-shift-1;
     % base transformation
     I = I/log(base);
 end
