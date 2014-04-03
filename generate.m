@@ -7,28 +7,33 @@ receiver = [4.23 3 1; 2 0.77 1];  % Receiver positions [x y z] (m)
 L        = [5 4 1];               % Room dimensions
 beta     = [0.15 0.30 0.50];      % T60 - Reverberation Time
 
-% Modified for non-integer?
+snr = 15;
 
-for i = 1:3
-    h{i} = rir_generator(c, fs, receiver, source, L, beta(i))
-end
 
-% Load speech signal
-t = 0:.0001:5;
-speech = sin(2*pi*t); % sine for now
-
-% Now convolve h with speech signal
-
-for i = 1:3
+function [sig1 sig2] = generate(c, fs, source, receiver, L, beta, speech, snr)
+% Generate required signal
+% c        : Sound speed    
+% fs       : Sampling freq
+% source   : Source positions [x y z]    
+% receiver : Receiver positions [x y z]    
+% L        : Room dimensions
+% beta     : T60 - Reverberation time
+% snr      : noise to be addded (dB)    
+% 
+%
+% Author: Jayesh Kumar Gupta, 2014.
+%
+% Contact: Jayesh Kumar Gupta http://rejuvyesh.com
+%          Indian Institute of Technology, Kanpur, India
+    
+    
+    h = rir_generator(c, fs, receiver, source, L, beta)
     for j = 1:2
-        x{i}(j,:) = conv(h{i}(j,:), speech);
-    end 
-end
-
-% Add noise to the convolved signal
-
-for i = 1:3
+        x(j) = conv(h(j,:), speech);
+    end
     for j = 1:2
-        x{i}(j,:) = awgn(x{i}(j,:), 15)
+        x(j) = awgn(x(j,:), snr);
     end 
+    sig1 = x(1,:);
+    sig2 = x(2,:);
 end
