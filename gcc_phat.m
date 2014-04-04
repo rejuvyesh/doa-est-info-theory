@@ -8,8 +8,8 @@ function tau = gcc_phat(sig1, sig2)
 %          Indian Institute of Technology, Kanpur, India
     
     len   = length(sig1);
-    fft1  = fft(sig1, fftSize(sig1));
-    fft2  = fft(sig2, fftSize(sig2));
+    fft1  = fft(sig1);
+    fft2  = fft(sig2);
     % Find R(\Tau)
     G12   = fft1.*conj(fft2);
     denom = abs(G12);
@@ -23,11 +23,11 @@ function tau = gcc_phat(sig1, sig2)
     tau   = find(abs(r)==d2) - length(r)/2;
 end
 
-function fftsz = fftSize(sig)
-% Find 2^x such that 2^x>2*nSamples
-    nSamples = length(sig);
-    fftsz = 2;
-    while fftsz < 2*nSamples
-        fftsz = fftsz*2;
-    end
-end
+% function fftsz = fftSize(sig)
+% % Find 2^x such that 2^x>2*nSamples
+%     nSamples = length(sig);
+%     fftsz = 2;
+%     while fftsz < 2*nSamples
+%         fftsz = fftsz*2;
+%     end
+% end
