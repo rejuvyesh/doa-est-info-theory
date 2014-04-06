@@ -10,27 +10,27 @@ function tau = gcc_phat(sig1, sig2)
     cross = xcorr(sig1, sig2);
     len   = length(sig1);
     p     = 1;
-    for m=1:len
+    for m = 1:len
         if 2.^m<(len*2);
             p=p+1;
         end
     end
     assumesignallength = 2.^p;
-    cc_phat=zeros((assumesignallength*2-1),1);%in correlation we get 2N-1(N
-                                              %being the largest of two
-                                              %sequence) length but in
-                                              %GCC-phat we get signal of
-                                              %legth of FFTlength. so making
-                                              %it to that length
-    phatfilter=zeros((assumesignallength*2-1),1);
-    crossspectrum=fft(cross);%=cross power spectral density=X1(f)X2^*(f)
+    gcc_phat = zeros((assumesignallength*2-1),1); % in correlation we get 2N-1(N
+                                                 % being the largest of two
+                                                 % sequence) length but in
+                                                 % GCC-phat we get signal of
+                                                 % legth of FFTlength. so making
+                                                 % it to that length
+    phatfilter = zeros((assumesignallength*2-1),1);
+    crossspectrum = fft(cross);%=cross power spectral density=X1(f)X2^*(f)
     for k = 1:length(crossspectrum)
-        phatfilter(k)  = abs(crossspectrum(k));
-        gcc_phat(k)  = crossspectrum(k)/phatfilter(k);
+        phatfilter(k) = abs(crossspectrum(k));
+        gcc_phat(k)   = crossspectrum(k)/phatfilter(k);
     end
-    phatcorrelation  = ifft(gcc_phat);
+    phatcorrelation = ifft(gcc_phat);
     for n = 1:length(crossspectrum)
-        phatcorrelation(n)  = abs(phatcorrelation(n));
+        phatcorrelation(n) = abs(phatcorrelation(n));
     end
     [phatmaximum,phattime] = max(phatcorrelation);
     tau = phattime;
