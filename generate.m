@@ -24,4 +24,9 @@ function [sig1 sig2] = generate(c, fs, source, receiver, L, beta, speech, snr)
     end 
     sig1 = x(1,:);
     sig2 = x(2,:);
+    figure(1);
+    subplot(2,1,1);
+    plot(sig1);
+    subplot(2,1,2);
+    plot(sig2);
 end
