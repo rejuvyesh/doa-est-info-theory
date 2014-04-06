@@ -6,28 +6,32 @@ function tau = gcc_phat(sig1, sig2)
 %
 % Contact: Jayesh Kumar Gupta http://rejuvyesh.com
 %          Indian Institute of Technology, Kanpur, India
-    
+
+    cross = xcorr(sig1, sig2);
     len   = length(sig1);
-    fft1  = fft(sig1);
-    fft2  = fft(sig2);
-    % Find R(\Tau)
-    G12   = fft1.*conj(fft2);
-    denom = abs(G12);
-    R     = G12./denom;
-
-    % Maximize R ?
-    r     = ifft(R);
-    r     = [r(end-len+1) r(1:len)];
-    d1    = real(r);
-    d2    = max(abs(r));
-    tau   = find(abs(r)==d2) - length(r)/2;
+    p     = 1;
+    for m=1:len
+        if 2.^m<(len*2);
+            p=p+1;
+        end
+    end
+    assumesignallength = 2.^p;
+    cc_phat=zeros((assumesignallength*2-1),1);%in correlation we get 2N-1(N
+                                              %being the largest of two
+                                              %sequence) length but in
+                                              %GCC-phat we get signal of
+                                              %legth of FFTlength. so making
+                                              %it to that length
+    phatfilter=zeros((assumesignallength*2-1),1);
+    crossspectrum=fft(cross);%=cross power spectral density=X1(f)X2^*(f)
+    for k = 1:length(crossspectrum)
+        phatfilter(k)  = abs(crossspectrum(k));
+        gcc_phat(k)  = crossspectrum(k)/phatfilter(k);
+    end
+    phatcorrelation  = ifft(gcc_phat);
+    for n = 1:length(crossspectrum)
+        phatcorrelation(n)  = abs(phatcorrelation(n));
+    end
+    [phatmaximum,phattime] = max(phatcorrelation);
+    tau = phattime;
 end
-
-% function fftsz = fftSize(sig)
-% % Find 2^x such that 2^x>2*nSamples
-%     nSamples = length(sig);
-%     fftsz = 2;
-%     while fftsz < 2*nSamples
-%         fftsz = fftsz*2;
-%     end
-% end
