@@ -1,6 +1,3 @@
-title: Estimation of Direction of Arrival Using Information Theory
----
-
 # Estimation of Direction of Arrival Using Information Theory
 
 ## Introduction
@@ -15,6 +12,32 @@ In the following sections, we describe the theory and implementation of this met
 
 ## Theory
 
+### GCC-PHAT
+
+### Information Theoretic Delay Estimation
+
 ## Implementation
+
+Simulations involved a single source and two microphone system. The relative sample delay estimate varies according to $d$. Moreover, the system can find only integer delays, so optimally it should estimate the delay to the nearest integer.
+
+--------------                 ------------------------
+Variable                       Value
+--------------                 ------------------------
+Speech duration                5 s
+
+Sampling Frequency, $f_s$      44.1 kHz
+
+Distance between source        2.23
+& mid-point of receivers
+Actual delay (samples)         6.89
+
+Expected delay (samples)       7
+
+$T_{60}(s)$                    0.15, 0.30, 0.50
+
+Length of $h(k)$ (samples)     6615, 13230, 22050
+--------------------------     ------------------------
+
+
 
 ## Results
