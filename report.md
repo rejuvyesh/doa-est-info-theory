@@ -24,7 +24,7 @@ Our model consists of a two element microphone array positioned arbitrarily in s
 
 where $\tau_m$ denotes the time samples that it takes for the source signal to reach the receiver $m$th microphone and $n_(k)$ is the respective additive zero mean uncorrelated noise. The overall geometry can be seen in Fig. 1.
 
-![Geometry of Recording System](./dir.png ) 
+![Geometry of Recording System](./img/dir.png ) 
 
 Using geometry we can find the following relation between DoA angle $\theta$ and delay $\tau$:
 
