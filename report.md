@@ -1,5 +1,10 @@
 % Estimation of Direction of Arrival Using Information Theory
-% Jayesh Kumar Gupta
+% Aatmaram Yadav;
+  Anupam Jakhar;
+  Arpit Jangid;
+  Jayesh Kumar Gupta;
+  Subhajit Mohanty
+% Group 2
 
 # Introduction
 
@@ -37,7 +42,7 @@ with
 
 (@) $$G(\omega) = \frac{1}{|X_1(\omega)X_2^*(\omega; \tau)|}$$
 
-$R(\tau)$ exhibits a global maximum at the lag value $\tau$. Therefore, we estimate $\tau_2$ by $\tau_2 = \argmax_{\tau} R(\tau)$.
+$R(\tau)$ exhibits a global maximum at the lag value $\tau$. Therefore, we estimate $\tau_2$ by $\tau_2 = argmax_{\tau} R(\tau)$.
 
 However to take the effect of reverberation into account, we use the following modal:
 
@@ -46,6 +51,8 @@ However to take the effect of reverberation into account, we use the following m
 where $h_m(k)$ represents the reverberant impulse response between the source and the $m$th microphone. Here $*$ represent convolution. This is a function of reverberation time, $T_{60}$.
 
 ## Information Theoretic Delay Estimation
+
+
 
 # Implementation
 
