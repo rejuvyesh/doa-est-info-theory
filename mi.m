@@ -29,7 +29,7 @@ function [lag, I] = mi(sig1, sig2, shift, order, base)
                                                       order+1:2*order)));
     end 
     [~, lag] = max(I);
-    lag      = lag-shift-1;
+    lag      = abs(lag-shift-1);
     % base transformation
     I = I/log(base);
 end
