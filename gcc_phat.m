@@ -1,4 +1,4 @@
-function tau = gcc_phat(sig1, sig2)
+function [tau, phatcorr] = gcc_phat(sig1, sig2)
 % Find FFT for the signals
 % 
 %
@@ -30,8 +30,11 @@ function tau = gcc_phat(sig1, sig2)
     end
     phatcorrelation = ifft(gcc_phat);
     for n = 1:length(crossspectrum)
-        phatcorrelation(n) = abs(phatcorrelation(n));
+        phatcorr(n) = abs(phatcorrelation(n));
     end
-    [phatmaximum,phattime] = max(phatcorrelation);
-    tau = phattime;
+    [phatmaximum,phattime] = max(phatcorr);
+    tau = abs(assumesignallength - abs(phattime));
+    figure
+    n1=-(length(phatcorr)-1)/2:(length(phatcorr)-1)/2;
+    plot(n1,phatcorr);
 end
