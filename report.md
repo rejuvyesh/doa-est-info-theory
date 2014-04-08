@@ -52,7 +52,27 @@ where $h_m(k)$ represents the reverberant impulse response between the source an
 
 ## Information Theoretic Delay Estimation
 
+Mutual information between signals $x_1$ and $x_2(\tau)$ is defined as ^[@cover]:
 
+(@mi) $$I = H[x_1] + H[x_2(\tau)] - H[x_1, x_2(\tau)]$$
+
+where H[x_m] is differential entropy of $x_m$ and $H[x_1, x_2(\tau)]$ is their joint entropy.
+
+The problem of finding the delay is equivalent to finding the value of $\tau$ that maximizes (@mi). If we assume source signal to be zero mean Gaussian distributed, MI is equal to ^[@cover]:
+
+(@) $$I = - \frac{1}{2} ln\frac{\det[C(\tau)]}{C_{11}C_{22}}$$
+
+For large L $C(\tau)$ can be approximated as
+
+(@) $$C(\tau) \approx \begin{bmatrix} x_1 \\ x_2(\tau) \end{bmatrix} \begin{bmatrix} x_1 \\ x_2(\tau) \end{bmatrix}^T = \begin{bmatrix} C_{11} && C_{12}(\tau) \\ C_{21}(\tau) && C_{22}\end{bmatrix}$$
+
+For reverberation model we find the marginal MI, considering jointly $N$ neighbouring samples:
+
+(@mmi) $$I_N = - \frac{1}{2} ln\frac{\det[C(\tau)]}{det[C_{11}]det[C_{22}]}$$
+
+Here $N$ is said to be the order of tracking system and the size of $C(\tau)$ is always $2(N+1) \times 2(N+1)$.
+
+According to information theoretic criterion, when (@mmi) reaches a maximum as a function of $\tau$ at a specific time shift, then that's the required delay.
 
 # Implementation
 
