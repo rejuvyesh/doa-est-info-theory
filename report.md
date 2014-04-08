@@ -34,7 +34,7 @@ where $f_s$ is the sampling frequency, $c$ is the speed of sound.
 
 ## GCC-PHAT
 
-The DoA is typically obtained using the original GCC function ^[@knapp] or one of its variants. Here we use GCC-PHAT version, considered to be the most robust version ^[@ward] $R(\tau)$ defined as cross correlation of $x_1$ and $x_2(\tau)$ filtered by a weighing function $g$ for the range of delays $\tau$ that determine the size of $L$. Considering their $L$-point discrete Fourier transforms,
+The DoA is typically obtained using the original GCC function [^@knapp] or one of its variants. Here we use GCC-PHAT version, considered to be the most robust version [^@ward] $R(\tau)$ defined as cross correlation of $x_1$ and $x_2(\tau)$ filtered by a weighing function $g$ for the range of delays $\tau$ that determine the size of $L$. Considering their $L$-point discrete Fourier transforms,
 
 (@) $$R(\tau) = \frac{1}{\pi} \sum_{\omega} = G(\omega) X_1(\omega) X_2^{*}(\omega; \tau) e^{j\omega \tau}$$
 
@@ -52,13 +52,13 @@ where $h_m(k)$ represents the reverberant impulse response between the source an
 
 ## Information Theoretic Delay Estimation
 
-Mutual information between signals $x_1$ and $x_2(\tau)$ is defined as ^[@cover]:
+Mutual information between signals $x_1$ and $x_2(\tau)$ is defined as [^@cover]:
 
 (@mi) $$I = H[x_1] + H[x_2(\tau)] - H[x_1, x_2(\tau)]$$
 
 where H[x_m] is differential entropy of $x_m$ and $H[x_1, x_2(\tau)]$ is their joint entropy.
 
-The problem of finding the delay is equivalent to finding the value of $\tau$ that maximizes (@mi). If we assume source signal to be zero mean Gaussian distributed, MI is equal to ^[@cover]:
+The problem of finding the delay is equivalent to finding the value of $\tau$ that maximizes (@mi). If we assume source signal to be zero mean Gaussian distributed, MI is equal to [^@cover]:
 
 (@) $$I = - \frac{1}{2} ln\frac{\det[C(\tau)]}{C_{11}C_{22}}$$
 
@@ -103,3 +103,14 @@ Noise added                    15 dB
 
 
 # Results
+
+
+[^@knapp]: C. H. Knapp and G. C. Carter, “The generalized correlation method for
+estimation of time delay,” IEEE Trans. Acoust., Speech, Signal Process.,
+vol. ASSP-24, no. 4, pp. 320–327, Aug. 1976.
+
+[^ward]: M. Brandstein and D. B. Ward, Microphone Arrays Signal Processing
+Techniques and Applications.New York: Springer-Verlag, 2001.
+
+[^@cover]: T. M. Cover and J. A. Thomas, Elements of Information Theory.New
+York: Wiley, 1991.
