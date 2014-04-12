@@ -21,7 +21,7 @@ for i =1:3
     j = 2:10;
     color = ['b' 'g' 'r'];
     plot(j,rmse_mi,color(i));
-    hold on ;
+    hold on;
 end
 print -dpng plot1.png
 close;
@@ -42,6 +42,7 @@ for i = 1:2
     hold on;
 end
 print -dpng plot2.png
+close;
 
 % plot 3
 clear all; 
@@ -51,8 +52,9 @@ for i = 1:5
     L = ceil(T(i)*fs*0.5);
     [rmse_mi(i), rmse_gcc(i)] =  run(10,L,T(i));
 end
-figure;
+
 plot(T,rmse_mi, '--');
 hold on;
 plot(T,rmse_gcc./100, '-');
 print -dpng plot3.png
+close;

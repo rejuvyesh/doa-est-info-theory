@@ -22,7 +22,7 @@ function [rmse_mi, rmse_gcc] = run(order, L, T60)
     sigma_t_mi  = 0;
     
     % male speech file
-    fname={'lalan2.wav'};
+    fname={'mike.wav'};
     
     % Find impulse function for the room
     h = rir_generator(c, fs, receiver, source, D,T60);
