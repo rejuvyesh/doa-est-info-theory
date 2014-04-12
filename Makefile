@@ -27,7 +27,8 @@ tex:	clean $(TEX)
 	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block+tex_math_dollars -s -S --latex-engine=xelatex -o $@ $<
 
 plot:
-	matlab -nojvm -nodisplay -nosplash -r "plotres"
+	matlab -nodisplay -nosplash -r "plotres"
+	mv *.png img/
 
 clean:
 	rm -f *.html *.pdf *.tex
