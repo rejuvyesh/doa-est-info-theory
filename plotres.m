@@ -37,7 +37,7 @@ for i = 2:10
 end
 for i = 1:2
     for k = 1:9
-        L = ceil(T(i)*fs*multiple(k));
+        L = ceil(T60(i)*fs*multiple(k));
         [rmse_mi(k), rmse_gcc(k)] =  run(10,L,T(i));
     end
     plot(multiple, rmse_mi, '--');
