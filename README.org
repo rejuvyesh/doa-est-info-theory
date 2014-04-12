@@ -2,7 +2,8 @@
  
 (EE-301 DSP)
 
-Implements the following [paper](http://spiral.imperial.ac.uk/bitstream/10044/1/561/1/Estimation%20of%20direction%20of.pdf):
+Implements the following [[http://spiral.imperial.ac.uk/bitstream/10044/1/561/1/Estimation%20of%20direction%20of.pdf][paper]]:
 
-> Talantzis, Fotios, Anthony G. Constantinides, and Lazaros C. Polymenakos. "Estimation of direction of arrival using information theory." Signal Processing Letters, IEEE 12.8 (2005): 561-564.
-
+#+begin_quote
+Talantzis, Fotios, Anthony G. Constantinides, and Lazaros C. Polymenakos. "Estimation of direction of arrival using information theory." Signal Processing Letters, IEEE 12.8 (2005): 561-564.
+#+end_quote
