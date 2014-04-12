@@ -1,21 +1,15 @@
-function [sig1 sig2] = generate(c, fs, source, receiver, L, beta, speech, snr)
+function [sig1, sig2] = generate(h, speech, snr)
 % Generate required signal
-% c        : Sound speed    
-% fs       : Sampling freq
-% source   : Source positions [x y z]    
-% receiver : Receiver positions [x y z]    
-% L        : Room dimensions
-% beta     : T60 - Reverberation time
-% snr      : noise to be addded (dB)    
-% 
 %
-% Author: Jayesh Kumar Gupta, 2014.
+% h      : impulse response of the room
+% speech : the input signal `x` to be convoluted with the impulse response
+% snr    : noise (dB) to be added
+%
+% Authors: Jayesh Kumar Gupta, Arpit Jangid, 2014.
 %
 % Contact: Jayesh Kumar Gupta http://rejuvyesh.com
 %          Indian Institute of Technology, Kanpur, India
     
-    
-    h = rir_generator(c, fs, receiver, source, L, beta);
     for j = 1:2
         x(j,:) = conv(h(j,:), speech);
     end
@@ -24,9 +18,4 @@ function [sig1 sig2] = generate(c, fs, source, receiver, L, beta, speech, snr)
     end 
     sig1 = x(1,:);
     sig2 = x(2,:);
-    figure(1);
-    subplot(2,1,1);
-    plot(sig1);
-    subplot(2,1,2);
-    plot(sig2);
 end

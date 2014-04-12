@@ -16,25 +16,32 @@ function [tau, phatcorr] = gcc_phat(sig1, sig2)
         end
     end
     assumesignallength = 2.^p;
-    gcc_phat = zeros((assumesignallength*2-1),1); % in correlation we get 2N-1(N
-                                                 % being the largest of two
-                                                 % sequence) length but in
-                                                 % GCC-phat we get signal of
-                                                 % legth of FFTlength. so making
-                                                 % it to that length
-    phatfilter = zeros((assumesignallength*2-1),1);
-    crossspectrum = fft(cross);%=cross power spectral density=X1(f)X2^*(f)
+    G_matrix = zeros((assumesignallength*2-1),1); % in correlation we get 2N-1(N
+                                                  % being the largest of two
+                                                  % sequence) length but in
+                                                  % GCC-phat we get signal of
+                                                  % legth of FFTlength. so making
+                                                  % it to that length
+    phatfilter    = zeros((assumesignallength*2-1),1);
+    % cross power spectral density = X1(f)X2^*(f)
+    crossspectrum = fft(cross);
+
+    % Find the matrix G
     for k = 1:length(crossspectrum)
         phatfilter(k) = abs(crossspectrum(k));
-        gcc_phat(k)   = crossspectrum(k)/phatfilter(k);
+        G_matrix(k)   = crossspectrum(k)/phatfilter(k);
     end
-    phatcorrelation = ifft(gcc_phat);
+
+    % Run inverse fourier transform to find R(\tau)
+    phatcorrelation = ifft(G_matrix);
+
+    % Find absolute values
     for n = 1:length(crossspectrum)
         phatcorr(n) = abs(phatcorrelation(n));
     end
+
+    % Find the value of tau for which it is maximum
     [phatmaximum,phattime] = max(phatcorr);
+    % Because ifft returns result in wrong order
     tau = abs(assumesignallength - abs(phattime));
-    figure
-    n1=-(length(phatcorr)-1)/2:(length(phatcorr)-1)/2;
-    plot(n1,phatcorr);
 end
