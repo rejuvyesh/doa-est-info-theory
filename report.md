@@ -16,7 +16,7 @@ The most common method applied for TDE is the generalized cross-correlation (GCC
 
 In our framework, we use the concept of mutual information to create a new comparing function that calculates the correct TDE by maximizing information that one microphone has about the other, assuming Gaussian distributions.
 
-In the following sections, we describe the theory and implementation of this method and show the comparative results with (GCC-PHAT) in the result section.
+In the following sections, we describe the theory and implementation of this method and show the comparative results with (GCC-PHAT) in the result section as done in [1][^1].
 
 # Theory
 
@@ -24,7 +24,7 @@ Our model consists of a two element microphone array positioned arbitrarily in s
 
 (@) $$x_m(k) = s(k - \tau_m) + n_m(k)$$
 
-where $\tau_m$ denotes the time samples that it takes for the source signal to reach the receiver $m$th microphone and $n_(k)$ is the respective additive zero mean uncorrelated noise. The overall geometry can be seen in Fig. 1.
+where $\tau_m$ denotes the time samples that it takes for the source signal to reach the receiver $m$th microphone and $n_m(k)$ is the respective additive zero mean uncorrelated noise. The overall geometry can be seen in Fig. 1.
 
 ![Geometry of Recording System](./img/dir.png ) 
 
@@ -101,21 +101,24 @@ Room dimensions                [5 4 3] m
 Noise added                    15 dB
 --------------------------     ------------------------
 
-The data was divided into 10 frames, and for each frame an estimate $\hat# ̂{\tau# τ}$ from which DoA is obtained. The squared error for frame $t$ is then obtained as:
-(@) $$\sigma# σ_t = (\tau# τ - \hat# ̂{\tau# τ_t})$$
+The data was divided into 10 frames, and for each frame an estimate $\hat{\tau}$ from which DoA is obtained. The squared error for frame $t$ is then obtained as:
 
-The root mean-squared error (RMSE) metric is the performance measure used to evaluate the system. For a single displacement of the geometry,this is defined to be the square root of the average value of $\sigma# σ_t$ ove0r all frames. 
+(@) $$\sigma_t = (\tau - \hat{\tau_t})$$
+
+The root mean-squared error (RMSE) metric is the performance measure used to evaluate the system. For a single displacement of the geometry, this is defined to be the square root of the average value of $\sigma_t$ over all frames. 
 
 
 # Results
 
 In the following figures we present the average RMSE over all ten simulation frames. Thus lower the average RMSE, better is the performance.
 
-![RMSE vs. order N for different values of $T_{60}$. $L = 0.5 \times# × T_{60}f_s$](./img/plot1.png )
+![RMSE vs. order N for different values of $T_{60}$. $L = 0.5 \times T_{60}f_s$](./img/plot1.png )
 
-![RMSE of MI and GCC-PHAT systems for varying $T_{60}$. $L = 0.5 \times# × T_{60}f_s$](./img/plot2.png )
+![RMSE of MI and GCC-PHAT systems for varying $T_{60}$. $L = 0.5 \times T_{60}f_s$](./img/plot2.png )
 
 ![RMSE of MI and GCC-PHAT systems for varying L](./img/plot3.png ) 
+
+[^1]: F. Talantzis, A.G. Constantinides, L. Polymenakos, Estimation of direction of arrival using information theory, in: IEEE Signal Processing, 12 (8), August 2005, pp. 561–564.
 
 [^@knapp]: C. H. Knapp and G. C. Carter, “The generalized correlation method for
 estimation of time delay,” IEEE Trans. Acoust., Speech, Signal Process.,
