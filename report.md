@@ -101,10 +101,21 @@ Room dimensions                [5 4 3] m
 Noise added                    15 dB
 --------------------------     ------------------------
 
+The data was divided into 10 frames, and for each frame an estimate $\hat# ̂{\tau# τ}$ from which DoA is obtained. The squared error for frame $t$ is then obtained as:
+(@) $$\sigma# σ_t = (\tau# τ - \hat# ̂{\tau# τ_t})$$
+
+The root mean-squared error (RMSE) metric is the performance measure used to evaluate the system. For a single displacement of the geometry,this is defined to be the square root of the average value of $\sigma# σ_t$ ove0r all frames. 
 
 
 # Results
 
+In the following figures we present the average RMSE over all ten simulation frames. Thus lower the average RMSE, better is the performance.
+
+![RMSE vs. order N for different values of $T_{60}$. $L = 0.5 \times# × T_{60}f_s$](./img/plot1.png )
+
+![RMSE of MI and GCC-PHAT systems for varying $T_{60}$. $L = 0.5 \times# × T_{60}f_s$](./img/plot2.png )
+
+![RMSE of MI and GCC-PHAT systems for varying L](./img/plot3.png ) 
 
 [^@knapp]: C. H. Knapp and G. C. Carter, “The generalized correlation method for
 estimation of time delay,” IEEE Trans. Acoust., Speech, Signal Process.,
@@ -115,3 +126,4 @@ Techniques and Applications.New York: Springer-Verlag, 2001.
 
 [^@cover]: T. M. Cover and J. A. Thomas, Elements of Information Theory.New
 York: Wiley, 1991.
+    
