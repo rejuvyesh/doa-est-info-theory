@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Estimation of Direction of Arrival Using Information Theory</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="css/healy-paper.css">
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<header>
+<h3 class="date">Group 2</h3>
+
+<h1 class="title">Estimation of Direction of Arrival Using Information Theory</h1>
+
+
+<h2 class="author">Aatmaram Yadav, Anupam Jakhar, Arpit Jangid,</h2>
+<p class="affilation"><em></em></p>
+<h2 class="author">Jayesh Kumar Gupta, Subhajit Mohanty</h2>
+<p class="affilation"><em>IIT Kanpur</em></p>
+
+</header>
+
+
+
+<h1 id="introduction">Introduction</h1>
+<p>Time delay estimation (TDE) algorithms are popularly employed for the estimation of Direction of Arrival (DoA) of an acoustic source. The most popular approach relies on defining the relative delay between a pair of microphones by getting a peak in the comparing function at the correct DoA of the source.</p>
+<p>The most common method applied for TDE is the generalized cross-correlation (GCC) algorithm with its numerous variants. But in reverberant environments its practical usefulness is severely restricted.</p>
+<p>In our framework, we use the concept of mutual information to create a new comparing function that calculates the correct TDE by maximizing information that one microphone has about the other, assuming Gaussian distributions.</p>
+<p>In the following sections, we describe the theory and implementation of this method and show the comparative results with (GCC-PHAT) in the result section as done in [1]<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>.</p>
+<h1 id="theory">Theory</h1>
+<p>Our model consists of a two element microphone array positioned arbitrarily in some enclosure. Distance between the microphones is <span class="math"><em>d</em></span> m. The sound source is assumed to be in the far field of the array so that it can be approximated as a plane wave arriving in a parallel manner at the microphones. For the non-reverberant case, signal at <span class="math"><em>m</em></span>th microphone (where <span class="math"><em>m</em> = 1, 2</span>) :</p>
+<ol style="list-style-type: example">
+<li><br /><span class="math"><em>x</em><sub><em>m</em></sub>(<em>k</em>) = <em>s</em>(<em>k</em> − <em>τ</em><sub><em>m</em></sub>) + <em>n</em><sub><em>m</em></sub>(<em>k</em>)</span><br /></li>
+</ol>
+<p>where <span class="math"><em>τ</em><sub><em>m</em></sub></span> denotes the time samples that it takes for the source signal to reach the receiver <span class="math"><em>m</em></span>th microphone and <span class="math"><em>n</em><sub><em>m</em></sub>(<em>k</em>)</span> is the respective additive zero mean uncorrelated noise. The overall geometry can be seen in Fig. 1.</p>
+<div class="figure">
+<img src="./img/dir.png" alt="Geometry of Recording System" /><p class="caption">Geometry of Recording System</p>
+</div>
+<p>Using geometry we can find the following relation between DoA angle <span class="math"><em>θ</em></span> and delay <span class="math"><em>τ</em></span>:</p>
+<ol start="2" style="list-style-type: example">
+<li><br /><span class="math">$$\theta = \arcsin[\frac{\tau c}{f_s d}]$$</span><br /></li>
+</ol>
+<p>where <span class="math"><em>f</em><sub><em>s</em></sub></span> is the sampling frequency, <span class="math"><em>c</em></span> is the speed of sound.</p>
+<h2 id="gcc-phat">GCC-PHAT</h2>
+<p>The DoA is typically obtained using the original GCC function <a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> or one of its variants. Here we use GCC-PHAT version, considered to be the most robust version <a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a> <span class="math"><em>R</em>(<em>τ</em>)</span> defined as cross correlation of <span class="math"><em>x</em><sub>1</sub></span> and <span class="math"><em>x</em><sub>2</sub>(<em>τ</em>)</span> filtered by a weighing function <span class="math"><em>g</em></span> for the range of delays <span class="math"><em>τ</em></span> that determine the size of <span class="math"><em>L</em></span>. Considering their <span class="math"><em>L</em></span>-point discrete Fourier transforms,</p>
+<ol start="3" style="list-style-type: example">
+<li><p><br /><span class="math">$$R(\tau) = \frac{1}{\pi} \sum_{\omega} = G(\omega) X_1(\omega) X_2^{*}(\omega; \tau) e^{j\omega \tau}$$</span><br />, with</p></li>
+<li><p><br /><span class="math">$$G(\omega) = \frac{1}{|X_1(\omega)X_2^*(\omega; \tau)|}$$</span><br /></p></li>
+</ol>
+<p><span class="math"><em>R</em>(<em>τ</em>)</span> exhibits a global maximum at the lag value <span class="math"><em>τ</em></span>. Therefore, we estimate <span class="math"><em>τ</em><sub>2</sub></span> by <span class="math"><em>τ</em><sub>2</sub> = <em>a</em><em>r</em><em>g</em><em>m</em><em>a</em><em>x</em><sub><em>τ</em></sub><em>R</em>(<em>τ</em>)</span>.</p>
+<p>However to take the effect of reverberation into account, we use the following modal:</p>
+<ol start="5" style="list-style-type: example">
+<li><br /><span class="math"><em>x</em><sub><em>m</em></sub>(<em>k</em>) = <em>h</em><sub><em>m</em></sub>(<em>k</em>) * <em>s</em>(<em>k</em>) + <em>n</em><sub><em>m</em></sub>(<em>k</em>)</span><br /></li>
+</ol>
+<p>where <span class="math"><em>h</em><sub><em>m</em></sub>(<em>k</em>)</span> represents the reverberant impulse response between the source and the <span class="math"><em>m</em></span>th microphone. Here <span class="math"> * </span> represent convolution. This is a function of reverberation time, <span class="math"><em>T</em><sub>60</sub></span>.</p>
+<h2 id="information-theoretic-delay-estimation">Information Theoretic Delay Estimation</h2>
+<p>Mutual information between signals <span class="math"><em>x</em><sub>1</sub></span> and <span class="math"><em>x</em><sub>2</sub>(<em>τ</em>)</span> is defined as <a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>:</p>
+<ol start="6" style="list-style-type: example">
+<li><br /><span class="math"><em>I</em> = <em>H</em>[<em>x</em><sub>1</sub>] + <em>H</em>[<em>x</em><sub>2</sub>(<em>τ</em>)] − <em>H</em>[<em>x</em><sub>1</sub>, <em>x</em><sub>2</sub>(<em>τ</em>)]</span><br /></li>
+</ol>
+<p>where <span class="math"><em>H</em>[<em>x</em><sub><em>m</em></sub>]</span> is differential entropy of <span class="math"><em>x</em><sub><em>m</em></sub></span> and <span class="math"><em>H</em>[<em>x</em><sub>1</sub>, <em>x</em><sub>2</sub>(<em>τ</em>)]</span> is their joint entropy.</p>
+<p>The problem of finding the delay is equivalent to finding the value of <span class="math"><em>τ</em></span> that maximizes (6). If we assume source signal to be zero mean Gaussian distributed, MI is equal to <a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>:</p>
+<ol start="7" style="list-style-type: example">
+<li><br /><span class="math">$$I = - \frac{1}{2} ln\frac{\det[C(\tau)]}{C_{11}C_{22}}$$</span><br /></li>
+</ol>
+<p>For large L <span class="math"><em>C</em>(<em>τ</em>)</span> can be approximated as</p>
+<ol start="8" style="list-style-type: example">
+<li><br /><span class="math">$$C(\tau) \approx \begin{bmatrix} x_1 \\ x_2(\tau) \end{bmatrix} \begin{bmatrix} x_1 \\ x_2(\tau) \end{bmatrix}^T = \begin{bmatrix} C_{11} &amp;&amp; C_{12}(\tau) \\ C_{21}(\tau) &amp;&amp; C_{22}\end{bmatrix}$$</span><br /></li>
+</ol>
+<p>For reverberation model we find the marginal MI, considering jointly <span class="math"><em>N</em></span> neighbouring samples:</p>
+<ol start="9" style="list-style-type: example">
+<li><br /><span class="math">$$I_N = - \frac{1}{2} ln\frac{\det[C(\tau)]}{det[C_{11}]det[C_{22}]}$$</span><br /></li>
+</ol>
+<p>Here <span class="math"><em>N</em></span> is said to be the order of tracking system and the size of <span class="math"><em>C</em>(<em>τ</em>)</span> is always <span class="math">2(<em>N</em> + 1) × 2(<em>N</em> + 1)</span>.</p>
+<p>According to information theoretic criterion, when (9) reaches a maximum as a function of <span class="math"><em>τ</em></span> at a specific time shift, then that’s the required delay.</p>
+<h1 id="implementation">Implementation</h1>
+<p>Simulations involved a single source and two microphone system. The relative sample delay estimate varies according to <span class="math"><em>d</em></span>. Moreover, the system can find only integer delays, so optimally it should estimate the delay to the nearest integer.</p>
+<table>
+<col width="43%" />
+<col width="33%" />
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="left">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Speech duration</td>
+<td align="left">5 s</td>
+</tr>
+<tr class="even">
+<td align="left">Sampling Frequency, <span class="math"><em>f</em><sub><em>s</em></sub></span></td>
+<td align="left">44.1 kHz</td>
+</tr>
+<tr class="odd">
+<td align="left">Distance between source &amp; mid-point of receivers Actual delay (samples)</td>
+<td align="left">2.23</td>
+</tr>
+<tr class="even">
+<td align="left">Expected delay (samples)</td>
+<td align="left">7</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math"><em>T</em><sub>60</sub>(<em>s</em>)</span></td>
+<td align="left">0.15, 0.30, 0.50</td>
+</tr>
+<tr class="even">
+<td align="left">Length of <span class="math"><em>h</em>(<em>k</em>)</span> (samples)</td>
+<td align="left">6615, 13230, 22050</td>
+</tr>
+<tr class="odd">
+<td align="left">Room dimensions</td>
+<td align="left">[5 4 3] m</td>
+</tr>
+<tr class="even">
+<td align="left">Noise added</td>
+<td align="left">15 dB</td>
+</tr>
+</tbody>
+</table>
+<p>The data was divided into 10 frames, and for each frame an estimate <span class="math"><em>τ̂</em></span> from which DoA is obtained. The squared error for frame <span class="math"><em>t</em></span> is then obtained as:</p>
+<ol start="10" style="list-style-type: example">
+<li><br /><span class="math">$$\sigma_t = (\tau - \hat{\tau_t})$$</span><br /></li>
+</ol>
+<p>The root mean-squared error (RMSE) metric is the performance measure used to evaluate the system. For a single displacement of the geometry, this is defined to be the square root of the average value of <span class="math"><em>σ</em><sub><em>t</em></sub></span> over all frames.</p>
+<h1 id="results">Results</h1>
+<p>In the following figures we present the average RMSE over all ten simulation frames. Thus lower the average RMSE, better is the performance.</p>
+<div class="figure">
+<img src="./img/plot1.png" alt="RMSE vs. order N for different values of T_{60}. L = 0.5 \times T_{60}f_s" /><p class="caption">RMSE vs. order N for different values of <span class="math"><em>T</em><sub>60</sub></span>. <span class="math"><em>L</em> = 0.5 × <em>T</em><sub>60</sub><em>f</em><sub><em>s</em></sub></span></p>
+</div>
+<div class="figure">
+<img src="./img/plot2.png" alt="RMSE of MI and GCC-PHAT systems for varying T_{60}. L = 0.5 \times T_{60}f_s" /><p class="caption">RMSE of MI and GCC-PHAT systems for varying <span class="math"><em>T</em><sub>60</sub></span>. <span class="math"><em>L</em> = 0.5 × <em>T</em><sub>60</sub><em>f</em><sub><em>s</em></sub></span></p>
+</div>
+<div class="figure">
+<img src="./img/plot3.png" alt="RMSE of MI and GCC-PHAT systems for varying L" /><p class="caption">RMSE of MI and GCC-PHAT systems for varying L</p>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>F. Talantzis, A.G. Constantinides, L. Polymenakos, Estimation of direction of arrival using information theory, in: IEEE Signal Processing, 12 (8), August 2005, pp. 561–564.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>C. H. Knapp and G. C. Carter, “The generalized correlation method for estimation of time delay,” IEEE Trans. Acoust., Speech, Signal Process., vol. ASSP-24, no. 4, pp. 320–327, Aug. 1976.<a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>M. Brandstein and D. B. Ward, Microphone Arrays Signal Processing Techniques and Applications.New York: Springer-Verlag, 2001.<a href="#fnref3">↩</a></p></li>
+<li id="fn4"><p>T. M. Cover and J. A. Thomas, Elements of Information Theory.New York: Wiley, 1991.<a href="#fnref4">↩</a></p></li>
+<li id="fn5"><p>T. M. Cover and J. A. Thomas, Elements of Information Theory.New York: Wiley, 1991.<a href="#fnref5">↩</a></p></li>
+</ol>
+</div>
+</body>
+</html>
