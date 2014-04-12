@@ -1,10 +1,12 @@
-% Estimation of Direction of Arrival Using Information Theory
-% Aatmaram Yadav;
-  Anupam Jakhar;
-  Arpit Jangid;
-  Jayesh Kumar Gupta;
-  Subhajit Mohanty
-% Group 2
+---
+title: Estimation of Direction of Arrival Using Information Theory
+author:
+    - name: Aatmaram Yadav, Anupam Jakhar, Arpit Jangid,
+    - name: Jayesh Kumar Gupta, Subhajit Mohanty
+      affiliation: IIT Kanpur
+date: Group 2
+math: <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+...
 
 # Introduction
 
@@ -36,8 +38,7 @@ where $f_s$ is the sampling frequency, $c$ is the speed of sound.
 
 The DoA is typically obtained using the original GCC function [^@knapp] or one of its variants. Here we use GCC-PHAT version, considered to be the most robust version [^@ward] $R(\tau)$ defined as cross correlation of $x_1$ and $x_2(\tau)$ filtered by a weighing function $g$ for the range of delays $\tau$ that determine the size of $L$. Considering their $L$-point discrete Fourier transforms,
 
-(@) $$R(\tau) = \frac{1}{\pi} \sum_{\omega} = G(\omega) X_1(\omega) X_2^{*}(\omega; \tau) e^{j\omega \tau}$$
-
+(@) $$R(\tau) = \frac{1}{\pi} \sum_{\omega} = G(\omega) X_1(\omega) X_2^{*}(\omega; \tau) e^{j\omega \tau}$$, 
 with
 
 (@) $$G(\omega) = \frac{1}{|X_1(\omega)X_2^*(\omega; \tau)|}$$
@@ -56,7 +57,7 @@ Mutual information between signals $x_1$ and $x_2(\tau)$ is defined as [^@cover]
 
 (@mi) $$I = H[x_1] + H[x_2(\tau)] - H[x_1, x_2(\tau)]$$
 
-where H[x_m] is differential entropy of $x_m$ and $H[x_1, x_2(\tau)]$ is their joint entropy.
+where $H[x_m]$ is differential entropy of $x_m$ and $H[x_1, x_2(\tau)]$ is their joint entropy.
 
 The problem of finding the delay is equivalent to finding the value of $\tau$ that maximizes (@mi). If we assume source signal to be zero mean Gaussian distributed, MI is equal to [^@cover]:
 
@@ -109,7 +110,7 @@ Noise added                    15 dB
 estimation of time delay,” IEEE Trans. Acoust., Speech, Signal Process.,
 vol. ASSP-24, no. 4, pp. 320–327, Aug. 1976.
 
-[^ward]: M. Brandstein and D. B. Ward, Microphone Arrays Signal Processing
+[^@ward]: M. Brandstein and D. B. Ward, Microphone Arrays Signal Processing
 Techniques and Applications.New York: Springer-Verlag, 2001.
 
 [^@cover]: T. M. Cover and J. A. Thomas, Elements of Information Theory.New
