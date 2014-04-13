@@ -24,7 +24,7 @@ tex:	clean $(TEX)
 	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block+tex_math_dollars -w latex -s -S --latex-engine=pdflatex --template=$(PREFIX)/templates/latex.template  -o $@ $<
 
 %.pdf:	%.md
-	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block+tex_math_dollars -s -S --latex-engine=xelatex -o $@ $<
+	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block+tex_math_dollars -s -S --latex-engine=xelatex --template=$(PREFIX)/templates/rejuvyesh-paper.xelatex -o $@ $<
 
 plot:
 	matlab -nodisplay -nosplash -r "plotres"
