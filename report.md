@@ -1,11 +1,18 @@
 ---
 title: Estimation of Direction of Arrival Using Information Theory
 author:
-    - name: Aatmaram Yadav, Anupam Jakhar, Arpit Jangid,
-    - name: Jayesh Kumar Gupta, Subhajit Mohanty
-      affiliation: IIT Kanpur
-date: Group 2
+    - name: Aatmaram Yadav (11004), Anupam Jakhar (11134),
+    - name: Arpit Jangid (11150), Jayesh Kumar Gupta (11337),
+    - name: Subhajit Mohanty (11731)
+date: EE301A - Term Paper Group 2
 math: <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+mainfont: Gentium
+sansfont: Lato
+monofont: Consolas
+fontsize: 11pt
+documentclass: article
+classoption: oneside
+papersize: a4
 ...
 
 # Introduction
@@ -117,6 +124,8 @@ In the following figures we present the average RMSE over all ten simulation fra
 ![RMSE of MI and GCC-PHAT systems for varying $T_{60}$. $L = 0.5 \times T_{60}f_s$](./img/plot2.png )
 
 ![RMSE of MI and GCC-PHAT systems for varying L](./img/plot3.png ) 
+
+We couldn't recreate the simulations as suggested in paper [^1].
 
 [^1]: F. Talantzis, A.G. Constantinides, L. Polymenakos, Estimation of direction of arrival using information theory, in: IEEE Signal Processing, 12 (8), August 2005, pp. 561–564.
 
