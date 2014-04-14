@@ -20,10 +20,10 @@ function [lag, I] = mi(sig1, sig2, shift, order, base)
     % compute mutual information
     for i = -shift:shift
         j=order+shift+i;
-        sub(1      :order  ,1      :order  )=cov(1  :order  ,1  :order  );
-        sub(order+1:2*order,order+1:2*order)=cov(j+1:j+order,j+1:j+order);
-        sub(1      :order  ,order+1:2*order)=cov(1  :order  ,j+1:j+order);
-        sub(order+1:2*order,1      :order  )=cov(j+1:j+order,1  :order  );
+        sub(1      :order  ,1      :order  )=cov(1  :order  ,1  :order  ); %C11
+        sub(order+1:2*order,order+1:2*order)=cov(j+1:j+order,j+1:j+order); %C22
+        sub(1      :order  ,order+1:2*order)=cov(1  :order  ,j+1:j+order); %C21(tau)
+        sub(order+1:2*order,1      :order  )=cov(j+1:j+order,1  :order  ); %C12(tau)
 
         I(shift+i+1) = -0.5*log(det(sub)/det(sub(1:order,1:order))/det(sub(order+1:2*order, ...
                                                       order+1:2*order)));
