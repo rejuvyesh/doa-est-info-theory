@@ -1,4 +1,4 @@
-#+TITLE: Estimation of Direction of Arrival Using Information Theory
+* Estimation of Direction of Arrival Using Information Theory
  
 (EE-301 DSP)
 
