@@ -103,7 +103,7 @@ $T_{60}(s)$                    0.15, 0.30, 0.50
 
 Length of $h(k)$ (samples)     6615, 13230, 22050
 
-Room dimensions                [5 4 3] m
+Room dimensions                [5 4 1] m
 
 Noise added                    15 dB
 --------------------------     ------------------------
