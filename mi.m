@@ -6,7 +6,7 @@ function [lag, I] = mi(sig1, sig2, shift, order, base)
 % order: N order
 % base: log base
 
-    start = 1+shift;
+    start  = 1+shift;
     finish = length(sig1) - shift - order + 1;
 
     % construct bigger covariance matrix
