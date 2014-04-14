@@ -1,6 +1,10 @@
 function [rmse_mi, rmse_gcc] = run(order, L, T60)
 % Run both GCC-PHAT and MI based delay calculaters and return RMS errors
 %
+% Input: 
+% order - order mi (N)
+% L     - block length
+% T60   - reverberation time
 %
 % Author: Jayesh Kumar Gupta, Arpit Jangid, 2014.
 %
